@@ -306,6 +306,7 @@ const DeepfakeDetector = () => {
       if (detectionLoopRef.current) {
         clearTimeout(detectionLoopRef.current);
       }
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
