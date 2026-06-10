@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# DeFakeIt — AI Deepfake Detector
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A browser-based deepfake detection tool built with React and TensorFlow.js. Uses a trained neural network to classify faces as real or AI-generated with confidence scoring. All inference runs **client-side** — no backend or server required.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Live Webcam Detection** — real-time frame-by-frame analysis using your camera
+- **Image Upload** — drag & drop or browse to analyze static images (JPG, PNG, WebP up to 10MB)
+- **Confidence Scoring** — displays real vs. fake probability with certainty level (Low / Medium / High / Very High)
+- **Processing Stats** — shows frame count and per-frame processing time in milliseconds
+- **Privacy First** — no data ever leaves your device; everything runs in the browser
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [React 19](https://react.dev/)
+- [TensorFlow.js](https://www.tensorflow.org/js) — client-side ML inference
+- [Tailwind CSS](https://tailwindcss.com/) — utility-first styling
+- [Font Awesome](https://fontawesome.com/) — icons
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Node.js](https://nodejs.org/) v18 or higher
+- npm
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git clone https://github.com/Pranshu0722/DeFakeIt.git
+cd DeFakeIt
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Run Locally
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start
+```
 
-### `npm run eject`
+Opens at [http://localhost:3000](http://localhost:3000).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Build for Production
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Output goes to the `build/` folder, ready for deployment.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## How It Works
 
-## Learn More
+1. The app loads a pre-trained TensorFlow.js model from the `public/model/` directory on startup.
+2. For webcam mode, frames are captured and preprocessed to 224×224 pixels, normalized, and fed to the model every ~100ms.
+3. For image uploads, the image is drawn onto a canvas, resized to 224×224, and passed through the same pipeline.
+4. The model outputs two class probabilities — **Class 0 (Real)** and **Class 1 (Fake)** — which are displayed with confidence metrics.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+src/
+├── App.js          # Main detector component (model loading, webcam, inference)
+├── InstallAlert.js # PWA install prompt
+├── App.css         # Global styles
+└── index.js        # Entry point
 
-### Code Splitting
+public/
+└── model/          # TensorFlow.js model files (model.json + weights)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
