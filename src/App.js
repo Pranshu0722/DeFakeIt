@@ -10,7 +10,7 @@ const DeepfakeDetector = () => {
   const [isDetecting, setIsDetecting] = useState(false);
   const [webcamStream, setWebcamStream] = useState(null);
   const [frameCount, setFrameCount] = useState(0);
-  const [startTime, setStartTime] = useState(null);
+  const [, setStartTime] = useState(null);
   const [status, setStatus] = useState({ message: 'Initializing AI system...', type: 'loading' });
   const [prediction, setPrediction] = useState(null);
   const [confidence, setConfidence] = useState(0);
@@ -119,6 +119,7 @@ const DeepfakeDetector = () => {
         requestAnimationFrame(predictLoop);
       }, 100);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model, isDetecting]);
 
   // Interpret prediction results
@@ -305,9 +306,8 @@ const DeepfakeDetector = () => {
       if (detectionLoopRef.current) {
         clearTimeout(detectionLoopRef.current);
       }
-    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (isDetecting && model) {
       predictLoop();
